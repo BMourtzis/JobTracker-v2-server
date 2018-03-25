@@ -4,20 +4,20 @@ using System.Text;
 
 namespace JobTrackerDomain.Models
 {
-    abstract class JobTemplate
+    internal abstract class JobTemplate
     {
         private Guid _id;
-        private TemplateType _type;
-
         private Job _job;
+        private TemplateType _type;
+        protected TemplateValues[] _values;
 
         #region Constructor
 
-        private JobTemplate() { }
+        protected JobTemplate() { }
 
-        protected JobTemplate(Guid jobId)
+        protected JobTemplate(Guid jobId, TemplateType type)
         {
-            
+            _type = type;
         }
 
         #endregion
@@ -27,14 +27,18 @@ namespace JobTrackerDomain.Models
         public TemplateType Type
         {
             get => _type;
-            protected set => _type = value;
+        }
+
+        public TemplateValues[] Values
+        {
+            get => _values;
         }
 
         #endregion
 
         #region Methods
 
-        public abstract void GenerateJobs(int year, int month);
+        public abstract List<DateTime> GenerateJobs(int year, int month);
 
         #endregion
     }
@@ -45,5 +49,12 @@ namespace JobTrackerDomain.Models
         Weekly,
         Fortnightly,
         Monthly
+    }
+
+    internal struct TemplateValues
+    {
+        int dayOfWeek;
+        DateTime time;
+        int weekOfMonth;
     }
 }

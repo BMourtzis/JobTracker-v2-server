@@ -38,7 +38,8 @@ namespace JobTrackerDomain.Models
             get => _bookingTime;
             set
             {
-                _state.UpdateBookingTime(delegate(){
+                _state.UpdateBookingTime(delegate()
+                {
                     _bookingTime = value;
                 });
             }
