@@ -27,6 +27,17 @@ namespace JobTrackerDomain.Registers
             return client;
         }
 
+        public Client UpdateClient(Guid id, string firstname, string lastname, string businessName)
+        {
+            var client = GetClient(id);
+            _context.Clients.Update(client); // Not sure why I have to do this
+            client.FirstName = firstname;
+            client.LastName = lastname;
+            client.BusinessName = businessName;
+            _context.SaveChanges();
+            return client;
+        }
+
         public IEnumerable<Client> GetClients()
         {
             var clients = _context.Clients.Where<Client>(c => c.Enabled == true);

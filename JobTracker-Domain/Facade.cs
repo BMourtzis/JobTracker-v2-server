@@ -14,8 +14,13 @@ namespace JobTrackerDomain
 
         public IClient CreateClient(string firstname, string lastname, string businessName, string shortname)
         {
-            IClient client;
-            client = clientRegister.CreateClient(firstname, lastname, businessName, shortname);
+            IClient client = clientRegister.CreateClient(firstname, lastname, businessName, shortname);
+            return client;
+        }
+
+        public IClient UpdateClient(Guid id, string firstname, string lastname, string businessName)
+        {
+            var client = clientRegister.UpdateClient(id, firstname, lastname, businessName);
             return client;
         }
 

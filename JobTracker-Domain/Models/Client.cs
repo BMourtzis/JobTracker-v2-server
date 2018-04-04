@@ -50,10 +50,14 @@ namespace JobTrackerDomain.Models
             get => _firstname;
             set
             {
-                _state.setFirstName(delegate ()
+                if (value != null)
                 {
-                    _firstname = value;
-                });
+                    _state.setFirstName(delegate ()
+                    {
+                        _firstname = value;
+                    });
+                }
+
             }
         }
 
@@ -63,10 +67,13 @@ namespace JobTrackerDomain.Models
             get => _lastname;
             set
             {
-                _state.setLastName(delegate ()
+                if(value != null)
                 {
-                    _lastname = value;
-                });
+                    _state.setLastName(delegate ()
+                    {
+                        _lastname = value;
+                    });
+                }
             }
         }
 
@@ -82,10 +89,13 @@ namespace JobTrackerDomain.Models
             get => _businessName;
             set
             {
-                _state.setBusinessName(delegate ()
+                if(value != null)
                 {
-                    _businessName = value;
-                });
+                    _state.setBusinessName(delegate ()
+                    {
+                        _businessName = value;
+                    });
+                }
             }
         }
 
@@ -95,10 +105,13 @@ namespace JobTrackerDomain.Models
             get => _shortname;
             set
             {
-                _state.setShortName(delegate ()
+                if(value != null)
                 {
-                    _shortname = value;
-                });
+                    _state.setShortName(delegate ()
+                    {
+                        _shortname = value;
+                    });
+                }
             }
         }
 

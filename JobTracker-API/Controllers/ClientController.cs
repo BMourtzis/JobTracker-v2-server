@@ -12,8 +12,8 @@ namespace JobTracker_API.Controllers
         public ClientController() : base() { }
 
         [HttpPost]
-        [Route("create")]
-        public IActionResult Create([FromBody]CreateVM model)
+        [Route("Create")]
+        public IActionResult Create([FromBody] CreateVM model)
         {
             if(ModelState.IsValid)
             {
@@ -29,7 +29,29 @@ namespace JobTracker_API.Controllers
             }
             else
             {
-                return StatusCode(400, ModelState.IsValid);
+                return StatusCode(400, ModelState.Keys);
+            }
+        }
+
+        [HttpPut]
+        [Route("Update")]
+        public IActionResult Update([FromBody] UpdateVM model)
+        {
+            if(ModelState.IsValid)
+            {
+                try
+                {
+                    var client = facade.UpdateClient(model.Id, model.firstname, model.lastname, model.businessName);
+                    return new JsonResult(client);
+                }
+                catch(BusinessRuleException ex)
+                {
+                    return StatusCode(400, ex);
+                }
+            }
+            else
+            {
+                return StatusCode(400, ModelState.Keys);
             }
         }
 
@@ -44,6 +66,7 @@ namespace JobTracker_API.Controllers
             }
             catch(BusinessRuleException ex)
             {
+                //return NotFound(ex);
                 return StatusCode(404, ex);
             }
         }

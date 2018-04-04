@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace JobTracker_API.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Base")]
     public abstract class BaseController : Controller
     {
         protected Facade facade;
