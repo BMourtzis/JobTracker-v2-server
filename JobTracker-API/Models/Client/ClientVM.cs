@@ -20,8 +20,6 @@ namespace JobTracker_API.Models.Client
 
     public class UpdateVM
     {
-        [Required]
-        public Guid Id { get; set; }
         public string firstname { get; set; }
         public string lastname { get; set; }
         public string businessName { get; set; }

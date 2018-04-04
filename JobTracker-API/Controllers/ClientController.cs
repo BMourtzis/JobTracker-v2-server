@@ -11,8 +11,39 @@ namespace JobTracker_API.Controllers
     {
         public ClientController() : base() { }
 
+        [HttpGet]
+        [Route("{id}")]
+        public IActionResult Get(Guid id)
+        {
+            try
+            {
+                var client = facade.GetClient(id);
+                return new JsonResult(client);
+            }
+            catch (BusinessRuleException ex)
+            {
+                //return NotFound(ex);
+                return StatusCode(404, ex);
+            }
+        }
+
+        [HttpGet]
+        [Route("")]
+        public IActionResult Get()
+        {
+            try
+            {
+                var clients = facade.GetClients();
+                return new JsonResult(clients);
+            }
+            catch (BusinessRuleException ex)
+            {
+                return StatusCode(400, ex);
+            }
+        }
+
         [HttpPost]
-        [Route("Create")]
+        [Route("create")]
         public IActionResult Create([FromBody] CreateVM model)
         {
             if(ModelState.IsValid)
@@ -34,14 +65,14 @@ namespace JobTracker_API.Controllers
         }
 
         [HttpPut]
-        [Route("Update")]
-        public IActionResult Update([FromBody] UpdateVM model)
+        [Route("{id}/update")]
+        public IActionResult Update(Guid id, [FromBody] UpdateVM model)
         {
             if(ModelState.IsValid)
             {
                 try
                 {
-                    var client = facade.UpdateClient(model.Id, model.firstname, model.lastname, model.businessName);
+                    var client = facade.UpdateClient(id , model.firstname, model.lastname, model.businessName);
                     return new JsonResult(client);
                 }
                 catch(BusinessRuleException ex)
@@ -52,37 +83,6 @@ namespace JobTracker_API.Controllers
             else
             {
                 return StatusCode(400, ModelState.Keys);
-            }
-        }
-
-        [HttpGet]
-        [Route("{id}")]
-        public IActionResult Get(Guid id)
-        {
-            try
-            {
-                var client = facade.GetClient(id);
-                return new JsonResult(client);
-            }
-            catch(BusinessRuleException ex)
-            {
-                //return NotFound(ex);
-                return StatusCode(404, ex);
-            }
-        }
-
-        [HttpGet]
-        [Route("")]
-        public IActionResult Get()
-        {
-            try
-            {
-                var clients = facade.GetClients();
-                return new JsonResult(clients);
-            }
-            catch (BusinessRuleException ex)
-            {
-                return StatusCode(400, ex);
             }
         }
 
