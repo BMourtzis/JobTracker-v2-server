@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using JobTrackerDomain;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -29,6 +31,22 @@ namespace JobTracker_API
                 c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1"});
          
             });
+
+            var dbOptions = new DbContextOptionsBuilder();
+            dbOptions.UseInMemoryDatabase("JobDB");
+
+            //services.AddTransient<Facade>(f => new Facade(Configuration.GetConnectionString("JobsDB")));
+            services.AddTransient(f => new Facade(dbOptions.Options));
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAllOrigins", builder =>
+                {
+                    builder.AllowAnyOrigin()
+                           .AllowAnyMethod()
+                           .AllowAnyHeader();
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -38,6 +56,8 @@ namespace JobTracker_API
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors("AllowAllOrigins");
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>

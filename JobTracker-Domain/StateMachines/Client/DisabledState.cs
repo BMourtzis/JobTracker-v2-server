@@ -30,7 +30,22 @@ namespace JobTrackerDomain.StateMachines.Client
             throw new BusinessRuleException("The client is disabled.");
         }
 
-        public override void setShortName(Action action)
+        public override void setInvoicePrefix(Action action)
+        {
+            throw new BusinessRuleException("The client is disabled.");
+        }
+
+        public override void setAddress(Action action)
+        {
+            throw new BusinessRuleException("The client is disabled.");
+        }
+
+        public override void setEmail(Action action)
+        {
+            throw new BusinessRuleException("The client is disabled.");
+        }
+
+        public override void setPrimaryPhone(Action action)
         {
             throw new BusinessRuleException("The client is disabled.");
         }
@@ -57,6 +72,16 @@ namespace JobTrackerDomain.StateMachines.Client
         public override void Enable(Action action)
         {
             action();
+        }
+
+        public override void addContact(Action action)
+        {
+            throw new BusinessRuleException("The client is disabled.");
+        }
+
+        public override void removeContact(Action action)
+        {
+            throw new BusinessRuleException("The client is disabled.");
         }
 
         #endregion

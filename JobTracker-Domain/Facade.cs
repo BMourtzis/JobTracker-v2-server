@@ -1,5 +1,6 @@
 ﻿using JobTrackerDomain.Interfaces;
 using JobTrackerDomain.Registers;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,19 +9,29 @@ namespace JobTrackerDomain
 {
     public class Facade : IDisposable
     {
-        ClientRegister clientRegister = new ClientRegister();
+        ClientRegister clientRegister;
+
+        public Facade()
+        {
+            clientRegister = new ClientRegister();
+        }
+
+        public Facade(DbContextOptions options)
+        {
+            clientRegister = new ClientRegister(new JobsDbContext(options));
+        }
 
         #region Client
 
-        public IClient CreateClient(string firstname, string lastname, string businessName, string shortname)
+        public IClient CreateClient(string firstname, string lastname, string businessName, string invoicePrefix, string address, string email, string primaryPhone)
         {
-            IClient client = clientRegister.CreateClient(firstname, lastname, businessName, shortname);
+            IClient client = clientRegister.CreateClient(firstname, lastname, businessName, invoicePrefix, address, email, primaryPhone);
             return client;
         }
 
-        public IClient UpdateClient(Guid id, string firstname, string lastname, string businessName)
+        public IClient UpdateClient(Guid id, string firstname, string lastname, string businessName, string address, string email, string primaryPhone)
         {
-            var client = clientRegister.UpdateClient(id, firstname, lastname, businessName);
+            var client = clientRegister.UpdateClient(id, firstname, lastname, businessName, address, email, primaryPhone);
             return client;
         }
 
@@ -38,19 +49,21 @@ namespace JobTrackerDomain
             return clients;
         }
 
-        public bool EnableClient(Guid id)
+        public IClient EnableClient(Guid id)
         {
-            bool enabled;
-            enabled = clientRegister.EnableClient(id);
-            return enabled;
+            var client = clientRegister.EnableClient(id);
+            return client;
         }
 
-        public bool DisableClient(Guid id)
+        public IClient DisableClient(Guid id)
         {
-            bool enabled;
-            enabled = clientRegister.DisableClient(id);
-            return enabled;
+            var client = clientRegister.DisableClient(id);
+            return client;
         }
+
+        #endregion
+
+        #region Contact
 
         #endregion
 

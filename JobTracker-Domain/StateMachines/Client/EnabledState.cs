@@ -30,7 +30,22 @@ namespace JobTrackerDomain.StateMachines.Client
             action();
         }
 
-        public override void setShortName(Action action)
+        public override void setInvoicePrefix(Action action)
+        {
+            action();
+        }
+
+        public override void setAddress(Action action)
+        {
+            action();
+        }
+
+        public override void setEmail(Action action)
+        {
+            action();
+        }
+
+        public override void setPrimaryPhone(Action action)
         {
             action();
         }
@@ -57,6 +72,16 @@ namespace JobTrackerDomain.StateMachines.Client
         public override void Enable(Action action)
         {
             throw new BusinessRuleException("The client is already enabled.");
+        }
+
+        public override void addContact(Action action)
+        {
+            action();
+        }
+
+        public override void removeContact(Action action)
+        {
+            action();
         }
 
         #endregion

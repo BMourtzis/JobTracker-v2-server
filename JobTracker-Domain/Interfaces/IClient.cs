@@ -11,7 +11,11 @@ namespace JobTrackerDomain.Interfaces
         string LastName { get; }
         string FullName { get; }
         string BusinessName { get; }
-        string ShortName { get; }
+        string InvoicePrefix { get; }
+        string Address { get; }
+        string Email { get; }
+        string PrimaryPhone { get; }
+
         //IEnumerable<IJob> Jobs { get; }
     }
 }

@@ -1,15 +1,18 @@
 ﻿using System;
 using JobTracker_API.Models.Client;
+using JobTrackerDomain;
 using JobTrackerDomain.Exceptions;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JobTracker_API.Controllers
 {
     [Route("client")]
     [Produces("apllication/json")]
+    [EnableCors("AllowAllOrigins")]
     public class ClientController : BaseController
     {
-        public ClientController() : base() { }
+        public ClientController(Facade context) : base(context) { }
 
         [HttpGet]
         [Route("{id}")]
@@ -50,7 +53,7 @@ namespace JobTracker_API.Controllers
             {
                 try
                 {
-                    var client = facade.CreateClient(model.firstname, model.lastname, model.businessName, model.shortname);
+                    var client = facade.CreateClient(model.firstname, model.lastname, model.businessName, model.invoicePrefix, model.address, model.email, model.primaryPhone);
                     return new JsonResult(client);
                 }
                 catch (BusinessRuleException ex)
@@ -72,7 +75,7 @@ namespace JobTracker_API.Controllers
             {
                 try
                 {
-                    var client = facade.UpdateClient(id , model.firstname, model.lastname, model.businessName);
+                    var client = facade.UpdateClient(id , model.firstname, model.lastname, model.businessName, model.address, model.email, model.primaryPhone);
                     return new JsonResult(client);
                 }
                 catch(BusinessRuleException ex)
@@ -97,7 +100,7 @@ namespace JobTracker_API.Controllers
             }
             catch (BusinessRuleException ex)
             {
-                return StatusCode(400, ex);
+                return StatusCode(400, ex.Message);
             }
         }
 

@@ -33,7 +33,10 @@ namespace JobTrackerDomain.StateMachines.Client
         public abstract void setFirstName(Action action);
         public abstract void setLastName(Action action);
         public abstract void setBusinessName(Action action);
-        public abstract void setShortName(Action action);
+        public abstract void setInvoicePrefix(Action action);
+        public abstract void setAddress(Action action);
+        public abstract void setPrimaryPhone(Action action);
+        public abstract void setEmail(Action action);
 
         #endregion
 
@@ -45,6 +48,15 @@ namespace JobTrackerDomain.StateMachines.Client
         public abstract void CreateSingleJob(Action action);
         public abstract void CreateTemplateJob(Action action);
 
+        public abstract void addContact(Action action);
+        public abstract void removeContact(Action action);
+
         #endregion
+    }
+
+    internal enum ClientStatus
+    {
+        Enabled,
+        Disabled
     }
 }

@@ -8,11 +8,14 @@ namespace JobTrackerDomain
 {
     internal class JobsDbContext: DbContext
     {
+        public JobsDbContext(DbContextOptions options): base(options) { }
+
         public DbSet<Client> Clients { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=(locald\mssqllocaldb;Database=MyDatabase;Trusted_Connection=True;");
+
         }
+
     }
 }

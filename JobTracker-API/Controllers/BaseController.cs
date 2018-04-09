@@ -11,11 +11,11 @@ namespace JobTracker_API.Controllers
     [Produces("application/json")]
     public abstract class BaseController : Controller
     {
-        protected Facade facade;
+        protected readonly Facade facade;
 
-        protected BaseController()
+        protected BaseController(Facade context)
         {
-            facade = new Facade();
+            facade = context;
         }
     }
 }
