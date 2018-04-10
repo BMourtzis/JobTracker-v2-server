@@ -6,11 +6,16 @@ using System.Text;
 
 namespace JobTrackerDomain
 {
-    internal class JobsDbContext: DbContext
+    public class JobsDbContext: DbContext
     {
         public JobsDbContext(DbContextOptions options): base(options) { }
 
-        public DbSet<Client> Clients { get; set; }
+        public JobsDbContext()
+        {
+
+        }
+
+        internal DbSet<Client> Clients { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

@@ -44,8 +44,7 @@ namespace JobTrackerDomain
 
         public IEnumerable<IClient> GetClients()
         {
-            IEnumerable<IClient> clients;
-            clients = clientRegister.GetClients();
+            var clients = clientRegister.GetClients();
             return clients;
         }
 

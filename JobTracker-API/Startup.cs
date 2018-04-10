@@ -32,12 +32,6 @@ namespace JobTracker_API
          
             });
 
-            var dbOptions = new DbContextOptionsBuilder();
-            dbOptions.UseInMemoryDatabase("JobDB");
-
-            //services.AddTransient<Facade>(f => new Facade(Configuration.GetConnectionString("JobsDB")));
-            services.AddTransient(f => new Facade(dbOptions.Options));
-
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowAllOrigins", builder =>
@@ -47,6 +41,24 @@ namespace JobTracker_API
                            .AllowAnyHeader();
                 });
             });
+        }
+
+        public void ConfigureDevelopmentServices(IServiceCollection services)
+        {
+            var dbOptions = new DbContextOptionsBuilder();
+            dbOptions.UseSqlServer(Configuration.GetConnectionString("JobsDB"));
+
+            services.AddTransient(f => new Facade(dbOptions.Options));
+
+            ConfigureServices(services);
+        }
+
+        public void ConfigureTestingServices(IServiceCollection services)
+        {
+            var dbOptions = new DbContextOptionsBuilder();
+            dbOptions.UseInMemoryDatabase("JobDB");
+
+            services.AddTransient(f => new Facade(dbOptions.Options));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

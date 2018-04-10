@@ -36,12 +36,12 @@ namespace JobTrackerDomain.Registers
         {
             var client = GetClient(id);
             _context.Clients.Update(client); // Not sure why I have to do this
-            client.FirstName = firstname;
-            client.LastName = lastname;
-            client.BusinessName = businessName;
-            client.Address = address;
-            client.Email = email;
-            client.PrimaryPhone = primaryPhone;
+            //client.FirstName = firstname;
+            //client.LastName = lastname;
+            //client.BusinessName = businessName;
+            //client.Address = address;
+            //client.Email = email;
+            //client.PrimaryPhone = primaryPhone;
             _context.SaveChanges();
             return client;
         }
@@ -72,8 +72,7 @@ namespace JobTrackerDomain.Registers
 
         public IEnumerable<Client> GetClients()
         {
-            var clients = _context.Clients.Where<Client>(c => c.Enabled == true);
-            //var clients = _context.Clients;
+            var clients = _context.Clients.Where<Client>(c => c.Status == 0).ToList();
             return clients;
         }
 
@@ -88,7 +87,7 @@ namespace JobTrackerDomain.Registers
 
         public void Dispose()
         {
-            _context.Dispose();
+            //_context.Dispose();
         }
     }
 }

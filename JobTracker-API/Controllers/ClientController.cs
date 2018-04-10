@@ -1,14 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using JobTracker_API.Models.Client;
 using JobTrackerDomain;
 using JobTrackerDomain.Exceptions;
+using JobTrackerDomain.Interfaces;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace JobTracker_API.Controllers
 {
     [Route("client")]
-    [Produces("apllication/json")]
     [EnableCors("AllowAllOrigins")]
     public class ClientController : BaseController
     {
@@ -21,12 +23,11 @@ namespace JobTracker_API.Controllers
             try
             {
                 var client = facade.GetClient(id);
-                return new JsonResult(client);
+                return Ok(client);
             }
             catch (BusinessRuleException ex)
             {
-                //return NotFound(ex);
-                return StatusCode(404, ex);
+                return NotFound(ex.Message);
             }
         }
 
@@ -37,11 +38,11 @@ namespace JobTracker_API.Controllers
             try
             {
                 var clients = facade.GetClients();
-                return new JsonResult(clients);
+                return Ok(clients);
             }
             catch (BusinessRuleException ex)
             {
-                return StatusCode(400, ex);
+                return BadRequest(ex.Message);
             }
         }
 
@@ -54,16 +55,16 @@ namespace JobTracker_API.Controllers
                 try
                 {
                     var client = facade.CreateClient(model.firstname, model.lastname, model.businessName, model.invoicePrefix, model.address, model.email, model.primaryPhone);
-                    return new JsonResult(client);
+                    return Ok(client);
                 }
                 catch (BusinessRuleException ex)
                 {
-                    return StatusCode(400, ex);
+                    return BadRequest(ex.Message);
                 }
             }
             else
             {
-                return StatusCode(400, ModelState.Keys);
+                return BadRequest(ModelState.Keys);
             }
         }
 
@@ -76,16 +77,16 @@ namespace JobTracker_API.Controllers
                 try
                 {
                     var client = facade.UpdateClient(id , model.firstname, model.lastname, model.businessName, model.address, model.email, model.primaryPhone);
-                    return new JsonResult(client);
+                    return Ok(client);
                 }
                 catch(BusinessRuleException ex)
                 {
-                    return StatusCode(400, ex);
+                    return BadRequest(ex.Message);
                 }
             }
             else
             {
-                return StatusCode(400, ModelState.Keys);
+                return BadRequest(ModelState.Keys);
             }
         }
 
@@ -96,11 +97,11 @@ namespace JobTracker_API.Controllers
             try
             {
                 var client = facade.EnableClient(id);
-                return new JsonResult(client);
+                return Ok(client);
             }
             catch (BusinessRuleException ex)
             {
-                return StatusCode(400, ex.Message);
+                return BadRequest(ex.Message);
             }
         }
 
@@ -111,11 +112,11 @@ namespace JobTracker_API.Controllers
             try
             {
                 var client = facade.DisableClient(id);
-                return new JsonResult(client);
+                return Ok(client);
             }
             catch (BusinessRuleException ex)
             {
-                return StatusCode(400, ex);
+                return BadRequest(ex.Message);
             }
         }
     }
