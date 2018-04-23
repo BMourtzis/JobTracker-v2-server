@@ -17,10 +17,10 @@ namespace JobTrackerDomain
 
         internal DbSet<Client> Clients { get; set; }
 
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
 
         }
-
     }
 }

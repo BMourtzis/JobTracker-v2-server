@@ -35,13 +35,8 @@ namespace JobTrackerDomain.Registers
         public Client UpdateClient(Guid id, string firstname, string lastname, string businessName, string address, string email, string primaryPhone)
         {
             var client = GetClient(id);
-            _context.Clients.Update(client); // Not sure why I have to do this
-            //client.FirstName = firstname;
-            //client.LastName = lastname;
-            //client.BusinessName = businessName;
-            //client.Address = address;
-            //client.Email = email;
-            //client.PrimaryPhone = primaryPhone;
+            //add a new method
+            _context.Clients.Update(client);
             _context.SaveChanges();
             return client;
         }
@@ -72,7 +67,7 @@ namespace JobTrackerDomain.Registers
 
         public IEnumerable<Client> GetClients()
         {
-            var clients = _context.Clients.Where<Client>(c => c.Status == 0).ToList();
+            var clients = _context.Clients.ToList();
             return clients;
         }
 
