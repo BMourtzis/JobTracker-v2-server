@@ -19,7 +19,8 @@ namespace JobTrackerDomain.Migrations
                     FirstName = table.Column<string>(nullable: false),
                     InvoicePrefix = table.Column<string>(nullable: false),
                     LastName = table.Column<string>(nullable: false),
-                    PrimaryPhone = table.Column<string>(nullable: true)
+                    PrimaryPhone = table.Column<string>(nullable: true),
+                    Status = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {

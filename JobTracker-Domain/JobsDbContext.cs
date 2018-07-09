@@ -1,8 +1,5 @@
 ﻿using JobTrackerDomain.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace JobTrackerDomain
 {
@@ -12,7 +9,7 @@ namespace JobTrackerDomain
 
         public JobsDbContext()
         {
-
+            
         }
 
         internal DbSet<Client> Clients { get; set; }

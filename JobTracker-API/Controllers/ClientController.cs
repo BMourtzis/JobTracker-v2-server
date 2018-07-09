@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using JobTracker_API.Models.Client;
 using JobTrackerDomain;
 using JobTrackerDomain.Exceptions;
-using JobTrackerDomain.Interfaces;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 
 namespace JobTracker_API.Controllers
 {

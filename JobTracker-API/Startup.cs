@@ -46,7 +46,7 @@ namespace JobTracker_API
         public void ConfigureDevelopmentServices(IServiceCollection services)
         {
             var dbOptions = new DbContextOptionsBuilder();
-            dbOptions.UseSqlServer(Configuration.GetConnectionString("JobsDB"));
+            dbOptions.UseSqlServer(Configuration.GetConnectionString("LocalDB"));
 
             services.AddTransient(f => new Facade(dbOptions.Options));
 

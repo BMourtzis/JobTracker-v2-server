@@ -11,7 +11,7 @@ using System;
 namespace JobTrackerDomain.Migrations
 {
     [DbContext(typeof(JobsDbContext))]
-    [Migration("20180410022624_InitialCreate")]
+    [Migration("20180709141704_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -45,6 +45,8 @@ namespace JobTrackerDomain.Migrations
                         .IsRequired();
 
                     b.Property<string>("PrimaryPhone");
+
+                    b.Property<int>("Status");
 
                     b.HasKey("ID");
 
