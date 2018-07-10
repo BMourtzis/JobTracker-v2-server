@@ -1,10 +1,8 @@
-﻿using JobTrackerDomain.Exceptions;
-using JobTrackerDomain.Interfaces;
+﻿using JobTrackerDomain.Interfaces;
 using JobTrackerDomain.StateMachines.Client;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace JobTrackerDomain.Models
 {
