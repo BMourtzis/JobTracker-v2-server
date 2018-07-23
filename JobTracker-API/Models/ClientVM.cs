@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace JobTracker_API.Models.Client
+namespace JobTracker_API.Models
 {
     public class CreateVM
     {

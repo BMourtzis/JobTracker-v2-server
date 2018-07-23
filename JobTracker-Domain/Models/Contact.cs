@@ -9,18 +9,20 @@ namespace JobTrackerDomain.Models
     {
         private Guid _id;
         private string _name;
-        private string _phone;
+        private string _contactValue;
         private Guid _clientId;
+        private int _contactType;
 
         #region Constructors
 
         private Contact() { }
 
-        public Contact(string name, string phone, Guid clientId)
+        public Contact(string name, string contactValue, Guid clientId, ContactType type)
         {
             _name = name;
-            _phone = phone;
+            _contactValue = contactValue;
             _clientId = clientId;
+            _contactType = (int)type;
         }
 
         #endregion
@@ -33,6 +35,11 @@ namespace JobTrackerDomain.Models
             get => _id;
         }
 
+        public ContactType ContactType
+        {
+            get => (ContactType)_contactType;
+        }
+
         [Required]
         public string Name
         {
@@ -41,10 +48,9 @@ namespace JobTrackerDomain.Models
         }
 
         [Required]
-        public string Phone
+        public string ContactValue
         {
-            get => _phone;
-            set => _phone = value ?? throw new BusinessRuleException("The phone of the contect cannot be empty");
+            get => _contactValue;
         }
 
         public Guid ClientID
@@ -56,6 +62,24 @@ namespace JobTrackerDomain.Models
 
         #region Methods
 
+        public void Update(string name, string contactValue)
+        {
+            if(_name != name)
+            {
+                _name = name;
+            }
+
+            if (_contactValue != contactValue)
+            {
+                _contactValue = contactValue;
+            }
+        }
+
         #endregion
+    }
+
+    public enum ContactType
+    {
+        Phone, Email
     }
 }

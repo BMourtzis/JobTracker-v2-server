@@ -97,6 +97,39 @@ namespace JobTrackerDomain.Models
 
         #region Methods
 
+        public void Update(string firstname, string lastname, string businessName, string address, string email, string primaryPhone)
+        {
+            if(firstname != FirstName)
+            {
+                FirstName = firstname;
+            }
+
+            if(lastname != LastName)
+            {
+                LastName = lastname;
+            }
+
+            if(businessName != BusinessName)
+            {
+                BusinessName = businessName;
+            }
+
+            if(address != Address)
+            {
+                Address = address;
+            }
+
+            if(email != Email)
+            {
+                Email = email;
+            }
+
+            if(primaryPhone != PrimaryPhone)
+            {
+                PrimaryPhone = primaryPhone;
+            }
+        }
+
         public Job CreateSingleJob(string name, Decimal price, DateTime bookingDate)
         {
             Job job = null;
@@ -138,15 +171,48 @@ namespace JobTrackerDomain.Models
 
         #region Contact
 
-        public Contact addContact(string name, string phone)
+        public Contact addContact(string name, string contactValue, int type)
         {
             Contact contact = null;
             _state.addContact(delegate ()
             {
-                contact = new Contact(name, phone, ID);
+                contact = new Contact(name, contactValue, ID, type);
                 _contacts.Add(contact);
             });
             return contact;
+        }
+
+        public Contact updateContact(Guid id, string name, string contactValue)
+        {
+            Contact contact = null;
+            _state.updateContact(delegate ()
+            {
+                contact = findContact(id);
+                contact.Update(name, contactValue);
+            });
+            return contact;
+        }
+
+        public Contact findContact(Guid id)
+        {
+            Contact contact = null;
+            _state.findContact(delegate ()
+            {
+                contact = _contacts.Find(c => c.ID == id);
+            });
+
+            return contact;
+        }
+
+
+
+        public void removeContact(Guid id)
+        {
+            _state.removeContact(delegate ()
+            {
+                var contact = findContact(id);
+                _contacts.Remove(contact);
+            });
         }
 
         // I might have to find a better parameter format
@@ -154,15 +220,6 @@ namespace JobTrackerDomain.Models
         //{
 
         //}
-
-        public void removeContact(Guid id)
-        {
-            _state.removeContact(delegate ()
-            {
-                var contact = _contacts.Find(c => c.ID == id);
-                _contacts.Remove(contact);
-            });
-        }
 
         //public void removeContact(List<Guid> removeList)
         //{

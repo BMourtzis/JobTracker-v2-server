@@ -84,6 +84,16 @@ namespace JobTrackerDomain.StateMachines.Client
             action();
         }
 
+        public override void updateContact(Action action)
+        {
+            action();
+        }
+
+        public override void findContact(Action action)
+        {
+            action();
+        }
+
         #endregion
     }
 }

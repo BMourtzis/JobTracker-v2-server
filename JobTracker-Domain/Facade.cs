@@ -60,9 +60,42 @@ namespace JobTrackerDomain
             return client;
         }
 
+        public void DeleteClient(Guid id)
+        {
+            clientRegister.DeleteClient(id);
+        }
+
         #endregion
 
         #region Contact
+
+        public IContact AddContact(Guid clientId, string name, string contactValue, int type)
+        {
+            var contact = clientRegister.AddContact(clientId, name, contactValue, type);
+            return contact;
+        }
+
+        public IEnumerable<IContact> AddContact(Guid clientId, List<Tuple<string, string, int>> details)
+        {
+            var contacts = new List<IContact>();
+            foreach(var dets in details)
+            {
+                contacts.Add(AddContact(clientId, dets.Item1, dets.Item2, dets.Item3));
+            }
+
+            return contacts;
+        }
+
+        public IContact UpdateContact(Guid clientId, Guid contactId, string name, string contactValue)
+        {
+            var contact = clientRegister.UpdateContact(clientId, contactId, name, contactValue);
+            return contact;
+        }
+
+        public void RemoveContact(Guid clientId, Guid contactId)
+        {
+            clientRegister.RemoveContact();
+        }
 
         #endregion
 

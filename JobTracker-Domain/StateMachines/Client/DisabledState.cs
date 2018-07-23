@@ -84,6 +84,16 @@ namespace JobTrackerDomain.StateMachines.Client
             throw new BusinessRuleException("The client is disabled.");
         }
 
+        public override void updateContact(Action action)
+        {
+            throw new BusinessRuleException("The client is disabled.");
+        }
+
+        public override void findContact(Action action)
+        {
+            action();
+        }
+
         #endregion
     }
 }

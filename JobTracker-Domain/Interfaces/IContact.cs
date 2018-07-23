@@ -8,6 +8,6 @@ namespace JobTrackerDomain.Interfaces
     {
         Guid ID { get; }
         string Name { get; }
-        string Phone { get; }
+        string ContactValue { get; }
     }
 }

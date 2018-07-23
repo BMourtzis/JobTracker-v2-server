@@ -49,6 +49,8 @@ namespace JobTrackerDomain.StateMachines.Client
         public abstract void CreateTemplateJob(Action action);
 
         public abstract void addContact(Action action);
+        public abstract void updateContact(Action action);
+        public abstract void findContact(Action action);
         public abstract void removeContact(Action action);
 
         #endregion

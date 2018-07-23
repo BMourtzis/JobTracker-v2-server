@@ -35,7 +35,7 @@ namespace JobTrackerDomain.Registers
         public Client UpdateClient(Guid id, string firstname, string lastname, string businessName, string address, string email, string primaryPhone)
         {
             var client = GetClient(id);
-            //add a new method
+            client.Update(firstname, lastname, businessName, address, email, primaryPhone);
             _context.Clients.Update(client);
             _context.SaveChanges();
             return client;
@@ -45,6 +45,7 @@ namespace JobTrackerDomain.Registers
         {
             var client = GetClient(id);
             client.Enable();
+            _context.Clients.Update(client);
             _context.SaveChanges();
             return client;
         }
@@ -52,17 +53,18 @@ namespace JobTrackerDomain.Registers
         public Client DisableClient(Guid id)
         {
             var client = GetClient(id);
-            _context.Clients.Update(client);
             client.Disable();
+            _context.Clients.Update(client);
             _context.SaveChanges();
             return client;
         }
 
-        public Contact addContact(Guid clientId, string name, string phone)
+        public void DeleteClient(Guid id)
         {
-            var contact = GetClient(clientId).addContact(name, phone);
+            var client = GetClient(id);
+            // TODO: if jobs length is zero, else throw exception
+            _context.Clients.Remove(client);
             _context.SaveChanges();
-            return contact;
         }
 
         public IEnumerable<Client> GetClients()
@@ -76,6 +78,29 @@ namespace JobTrackerDomain.Registers
             var client = _context.Clients.Find(id);
             //maybe throw error on no client found
             return client;
+        }
+
+        #endregion
+
+        #region Contact
+
+        public Contact AddContact(Guid clientId, string name, string contactValue, int type)
+        {
+            var contact = GetClient(clientId).addContact(name, contactValue, type);
+            _context.SaveChanges();
+            return contact;
+        }
+
+        public Contact UpdateContact(Guid clientId, Guid contactId, string name, string contactValue)
+        {
+            var contact = GetClient(clientId).updateContact(contactId, name, contactValue);
+            _context.SaveChanges();
+            return contact;
+        }
+
+        public void RemoveContact(Guid clientId, Guid contactId)
+        {
+            GetClient(clientId).removeContact(contactId);
         }
 
         #endregion

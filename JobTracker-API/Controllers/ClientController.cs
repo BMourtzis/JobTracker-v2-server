@@ -1,4 +1,5 @@
 ﻿using System;
+using JobTracker_API.Models;
 using JobTracker_API.Models.Client;
 using JobTrackerDomain;
 using JobTrackerDomain.Exceptions;
@@ -116,5 +117,69 @@ namespace JobTracker_API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPut]
+        [Route("{id}/delete")]
+        public IActionResult Delete(Guid id)
+        {
+            try
+            {
+                facade.DeleteClient(id);
+                return Ok();    
+            }
+            catch (BusinessRuleException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        #region Contacts
+
+        [HttpPost]
+        [Route("{id}/contacts/add")]
+        public IActionResult AddContact(Guid id, [FromBody] AddContactVM model)
+        {
+            try
+            {
+                var contacts = facade.AddContact(id, model.Contacts);
+                return Ok(contacts);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut]
+        [Route("{id}/contacts/{contactId}/update")]
+        public IActionResult UpdateContact(Guid id, Guid contactId, [FromBody] UpdateContactVM model)
+        {
+            try
+            {
+                var contact = facade.UpdateContact(id, contactId, model.Name, model.ContactValue);
+                return Ok(contact)
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpDelete]
+        [Route("{id}/contacts/{contactId}/delete")]
+        public IActionResult RemoveContact(Guid id, Guid contactId)
+        {
+            try
+            {
+                facade.RemoveContact(id, contactId);
+                return Ok();
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        #endregion
     }
 }
