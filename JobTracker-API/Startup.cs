@@ -1,4 +1,5 @@
-﻿using JobTrackerDomain;
+﻿using JobTracker_API.Filters;
+using JobTrackerDomain;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -20,7 +21,11 @@ namespace JobTracker_API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(new ErrorHandlingFilter());
+            });
+
             services.AddSwaggerGen(c => {
                 c.SwaggerDoc("v1", new Info { Title = "JobTracker", Version = "v1"});
          

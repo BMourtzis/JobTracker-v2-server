@@ -144,7 +144,7 @@ namespace JobTracker_API.Controllers
                 var contacts = facade.AddContact(id, model.Contacts);
                 return Ok(contacts);
             }
-            catch(Exception ex)
+            catch(BusinessRuleException ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -159,7 +159,7 @@ namespace JobTracker_API.Controllers
                 var contact = facade.UpdateContact(id, contactId, model.Name, model.ContactValue);
                 return Ok(contact)
             }
-            catch(Exception ex)
+            catch(BusinessRuleException ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -174,7 +174,7 @@ namespace JobTracker_API.Controllers
                 facade.RemoveContact(id, contactId);
                 return Ok();
             }
-            catch(Exception ex)
+            catch(BusinessRuleException ex)
             {
                 return BadRequest(ex.Message);
             }
