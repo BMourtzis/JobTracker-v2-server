@@ -1,4 +1,5 @@
 ﻿using JobTrackerDomain.Interfaces;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -20,6 +21,7 @@ namespace JobTracker_API.Models
         [Required, EmailAddress]
         public string email { get; set; }
         public string primaryPhone { get; set; }
+        public List<Tuple<int, string, string>> contacts { get; set; }
     }
 
     public class UpdateVM

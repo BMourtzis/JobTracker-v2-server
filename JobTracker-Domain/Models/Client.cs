@@ -18,7 +18,10 @@ namespace JobTrackerDomain.Models
 
         #region Constructor
 
-        private Client() { }
+        private Client()
+        {
+            _contacts = new List<Contact>();
+        }
 
         public Client(string firstname, string lastname, string businessName, string invoicePrefix, string address, string email, string primaryPhone)
         {
@@ -31,6 +34,7 @@ namespace JobTrackerDomain.Models
             PrimaryPhone = primaryPhone;
             _state = new EnabledState();
             _status = ClientStatus.Enabled;
+            _contacts = new List<Contact>();
         }
 
         #endregion
@@ -78,10 +82,10 @@ namespace JobTrackerDomain.Models
 
         public string PrimaryPhone { get; private set; }
 
-        //public List<Contact> Contacts
-        //{
-        //    get => _contacts;
-        //}
+        public List<Contact> Contacts
+        {
+            get => _contacts;
+        }
 
         public bool Enabled
         {
@@ -176,7 +180,7 @@ namespace JobTrackerDomain.Models
             Contact contact = null;
             _state.addContact(delegate ()
             {
-                contact = new Contact(name, contactValue, ID, type);
+                contact = new Contact(name, contactValue, ID, (ContactType) type);
                 _contacts.Add(contact);
             });
             return contact;

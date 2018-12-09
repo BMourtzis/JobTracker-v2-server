@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using SharpRaven;
 using System;
 using System.Net;
 
@@ -18,6 +19,8 @@ namespace JobTracker_API.Filters
             var exception = context.Exception;
 
             // if internal register in sentry
+            var ravenClient = new RavenClient("https://b3c1b74d6d3c415c871b5a2d03267c2c@sentry.io/1248085");
+            ravenClient.Capture(new SharpRaven.Data.SentryEvent(exception)) ;
             SetExceptionResult(context, exception, HttpStatusCode.InternalServerError);
         }
 

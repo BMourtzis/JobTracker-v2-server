@@ -94,7 +94,7 @@ namespace JobTrackerDomain
 
         public void RemoveContact(Guid clientId, Guid contactId)
         {
-            clientRegister.RemoveContact();
+            clientRegister.RemoveContact(clientId, contactId);
         }
 
         #endregion

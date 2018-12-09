@@ -7,7 +7,6 @@ namespace JobTrackerDomain.Models
 {
     internal class Contact: IContact
     {
-        private Guid _id;
         private string _name;
         private string _contactValue;
         private Guid _clientId;
@@ -30,11 +29,9 @@ namespace JobTrackerDomain.Models
         #region Properties
 
         [Key]
-        public Guid ID
-        {
-            get => _id;
-        }
+        public Guid ID  { get; private set; }
 
+        [Required]
         public ContactType ContactType
         {
             get => (ContactType)_contactType;
@@ -51,8 +48,10 @@ namespace JobTrackerDomain.Models
         public string ContactValue
         {
             get => _contactValue;
+            set => _name = value ?? throw new BusinessRuleException("The contact value of the contact cannot be empty");
         }
 
+        [Required]
         public Guid ClientID
         {
             get => _clientId;
